@@ -10,24 +10,9 @@ describe("anchor-example", () => {
   const wallet = anchor.Wallet.local();
   const program = anchor.workspace.AnchorExample as Program<AnchorExample>;
 
-  const collection = Keypair.generate()
-  console.log("Collection address: " + collection.publicKey.toBase58());
+  const collection = new anchor.web3.PublicKey("ADqLTbh3cTBB7YKSZTsTgvDVJzvGQMtzmyE2CEWECURR");
   const asset = Keypair.generate()
   console.log("Asset address: " + asset.publicKey.toBase58());
-
-  it("Create Collection!", async () => {
-    const tx = await program.methods.createCollection()
-    .accountsPartial({
-      signer: wallet.publicKey,
-      payer: wallet.publicKey,
-      collection: collection.publicKey,
-      mplCoreProgram: MPL_CORE_PROGRAM_ID,
-    })
-    .signers([wallet.payer, collection])
-    .rpc();
-
-    console.log(tx);
-  });
 
   it("Create Asset!", async () => {
     const tx = await program.methods.createAsset()
@@ -35,7 +20,7 @@ describe("anchor-example", () => {
       signer: wallet.publicKey,
       payer: wallet.publicKey,
       asset: asset.publicKey,
-      collection: collection.publicKey,
+      collection: collection,
       mplCoreProgram: MPL_CORE_PROGRAM_ID,
     })
     .signers([wallet.payer, asset])
