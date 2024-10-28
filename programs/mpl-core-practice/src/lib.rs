@@ -23,7 +23,9 @@ pub mod anchor_example {
         .collection(&ctx.accounts.collection.to_account_info())
         .payer(&ctx.accounts.payer.to_account_info())
         .system_program(&ctx.accounts.system_program.to_account_info())
-        .name("My Super Collection".to_string())
+        // the name of the collection
+        .name("Rugs R Us".to_string())
+        // the off-chain URI of the collection that defines the collection's metadata
         .uri("https://example.com".to_string())
         .plugins(collection_plugins)
         .invoke()?;
@@ -38,7 +40,9 @@ pub mod anchor_example {
         .collection(Some(&ctx.accounts.collection.to_account_info()))
         .payer(&ctx.accounts.payer.to_account_info())
         .system_program(&ctx.accounts.system_program.to_account_info())
+        // the name of the specific asset
         .name("My Super Asset".to_string())
+        // the off-chain URI of the asset that defines its metadata
         .uri("https://example.com".to_string())
         .invoke()?;
 
